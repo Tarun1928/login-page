@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --primary-color: #6a11cb;
+    --secondary-color: #2575fc;
+    --background-color: #f0f2f5;
+    --text-color: #333;
+    --input-border-color: #ccc;
+    --input-focus-color: var(--secondary-color);
+    --button-text-color: #fff;
+    --error-color: #e74c3c;
+    --success-color: #2ecc71;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Hide scrollbars caused by shapes */
+}
+
+.login-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    background-color: #fff;
+    padding: 40px 50px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+    z-index: 1;
+    position: relative; /* Ensure it's above shapes */
+    overflow: hidden; /* Clip potential overflow from animations */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+
+.login-box h2 {
+    color: var(--text-color);
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 35px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: transparent;
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+}
+
+.input-group label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 16px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: #fff; /* Match background */
+    padding: 0 5px;
+}
+
+/* Input focus and filled state */
+.input-group input:focus,
+.input-group input:valid {
+    border-color: var(--input-focus-color);
+    outline: none;
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label {
+    top: 0;
+    left: 10px;
+    font-size: 12px;
+    color: var(--input-focus-color);
+    transform: translateY(-50%) scale(0.9);
+}
+
+/* Animated border */
+.input-group .focus-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--input-focus-color);
+    transition: width 0.4s ease;
+}
+
+.input-group input:focus ~ .focus-border {
+    width: 100%;
+}
+
+/* Password toggle button */
+#toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px;
+}
+
+#toggle-password:hover {
+    color: var(--input-focus-color);
+}
+
+/* Login Button */
+.login-button {
+    display: inline-flex; /* Use flex for icon alignment */
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px 20px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden; /* Contain pseudo-elements */
+}
+
+.login-button span {
+    margin-right: 8px; /* Space between text and icon */
+    transition: transform 0.3s ease;
+}
+
+.login-button .arrow {
+    transition: transform 0.3s ease;
+    transform: translateX(-10px); /* Initially hidden */
+    opacity: 0;
+}
+
+.login-button:hover {
+    background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.login-button:hover span {
+    transform: translateX(-5px);
+}
+
+.login-button:hover .arrow {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.login-button:active {
+    transform: scale(0.98);
+}
+
+/* Message area */
+.message {
+    margin-top: 20px;
+    font-size: 14px;
+    min-height: 20px; /* Reserve space */
+    transition: color 0.3s ease;
+}
+
+.message.error {
+    color: var(--error-color);
+}
+
+.message.success {
+    color: var(--success-color);
+}
+
+/* Background Shapes */
+.background-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(45deg, rgba(106, 17, 203, 0.1), rgba(37, 117, 252, 0.1));
+    animation: float 15s infinite ease-in-out alternate;
+}
+
+.shape1 {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 15%;
+    animation-duration: 18s;
+}
+
+.shape2 {
+    width: 100px;
+    height: 100px;
+    top: 70%;
+    left: 80%;
+    animation-duration: 12s;
+    animation-delay: 2s;
+}
+
+.shape3 {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    left: 10%;
+    animation-duration: 20s;
+    animation-delay: 4s;
+}
+
+.shape4 {
+    width: 80px;
+    height: 80px;
+    top: 20%;
+    left: 75%;
+    animation-duration: 16s;
+    animation-delay: 1s;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px) translateX(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) translateX(15px) rotate(180deg);
+    }
+    100% {
+        transform: translateY(0px) translateX(0px) rotate(360deg);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .login-box {
+        width: 90%;
+        padding: 30px 25px;
+    }
+
+    .login-box h2 {
+        font-size: 24px;
+    }
+
+    .input-group input,
+    .login-button {
+        font-size: 14px;
+    }
+
+    .input-group label {
+        font-size: 14px;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:valid + label {
+        font-size: 11px;
+    }
+}
